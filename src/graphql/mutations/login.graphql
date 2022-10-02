@@ -1,0 +1,14 @@
+mutation Login($auth: UsernamePasswordInput!) {
+    login(auth: $auth) {
+        errors {
+            field
+            message
+        }
+        user {
+            username
+            id
+            createdAt
+            updatedAt
+        }
+    }
+}
