@@ -5,10 +5,7 @@ mutation Login($auth: UsernamePasswordInput!) {
             message
         }
         user {
-            username
-            id
-            createdAt
-            updatedAt
+            ...RegularUser
         }
     }
 }
