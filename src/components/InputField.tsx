@@ -7,7 +7,7 @@ export const InputField: FC<InputHTMLAttributes<HTMLInputElement> & {
     name: string,
     label: string,
 }> = ({ size, ...props }) => {
-    const [field, { error, touched }] = useField(props);
+    const [field, { error }] = useField(props);
 
     return (
         <FormControl isInvalid={ !!error }>

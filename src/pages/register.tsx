@@ -17,7 +17,7 @@ export const Register: FC = () => {
     return (
         <Wrapper variant={ 'small' }>
             <Formik
-                initialValues={ { username: '', password: '' } }
+                initialValues={ { username: '', email: '', password: '' } }
                 onSubmit={ async (values, { setErrors }) => {
                     const { data } = await register({ options: values });
 
@@ -45,6 +45,16 @@ export const Register: FC = () => {
                                 onChange={ handleChange }
                                 value={ values.username }
                             />
+                            <Box mt={ 8 }>
+                                <InputField
+                                    id="email"
+                                    name="email"
+                                    label="email"
+                                    placeholder="Email"
+                                    onChange={ handleChange }
+                                    value={ values.email }
+                                />
+                            </Box>
                             <Box mt={ 8 }>
                                 <InputField
                                     id="password"
