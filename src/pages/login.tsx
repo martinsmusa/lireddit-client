@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FC } from 'react';
 import { Form, Formik } from 'formik';
-import { Box, Button, FormControl } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, Link } from '@chakra-ui/react';
 import { Wrapper } from '../components/Wrapper';
 import { InputField } from '../components/InputField';
 import { useLoginMutation } from '../generated/graphql';
@@ -9,6 +9,7 @@ import { toErrorMap } from '../utils/toErrorMap';
 import { useRouter } from 'next/router';
 import { withUrqlClient } from 'next-urql';
 import { createUrqlClient } from '../utils/createUrqlClient';
+import NextLink from 'next/link';
 
 export const Login: FC = () => {
     const [, login] = useLoginMutation();
@@ -17,9 +18,9 @@ export const Login: FC = () => {
     return (
         <Wrapper variant={ 'small' }>
             <Formik
-                initialValues={ { username: '', password: '' } }
+                initialValues={ { usernameOrEmail: '', password: '' } }
                 onSubmit={ async (values, { setErrors }) => {
-                    const { data } = await login({ auth: values });
+                    const { data } = await login(values);
 
                     if (!data) {
                         return null;
@@ -38,12 +39,12 @@ export const Login: FC = () => {
                     <Form>
                         <FormControl>
                             <InputField
-                                id="username"
-                                name="username"
-                                label="Username"
-                                placeholder="Username"
+                                id="usernameOrEmail"
+                                name="usernameOrEmail"
+                                label="usernameOrEmail"
+                                placeholder="Username or Email"
                                 onChange={ handleChange }
-                                value={ values.username }
+                                value={ values.usernameOrEmail }
                             />
                             <Box mt={ 8 }>
                                 <InputField
@@ -56,6 +57,11 @@ export const Login: FC = () => {
                                     value={ values.password }
                                 />
                             </Box>
+                            <Flex mt={ 2 }>
+                                <NextLink href="/forgot-password">
+                                    <Link ml="auto">Forgot Password?</Link>
+                                </NextLink>
+                            </Flex>
                             <Button
                                 mt={ 4 }
                                 type="submit"
